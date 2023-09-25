@@ -186,6 +186,7 @@ _mext_interrupt_handler:
     # Claim the interrupt - read CLAIM/COMPLETE - A non-zero read ontains the id of the highest pending interrupt.
     la t0, PLIC_CLAIM               # load the address of CLAIM reg
     lw t1, 0(t0)                    # read the CLAIM reg. t1 holds the id of the highest pending interrupt
+                                    # reading CLAIM delets the pending bit
     slli t2, t1, 2                  # id * 4 to obtain the offset
 
     la t3, _plic_ext_vector_table   # load the address of the external interrupt vector table
@@ -193,7 +194,7 @@ _mext_interrupt_handler:
     jalr t3                         # call interrupt handler that procees the id interrupt
 
     # Complete the interrupt - A write to the CLAIM/COMPLETE register signals completion of the interrupt id written
-    sw t1, 0(t0)
+    ;sw t1, 0(t0)
 
 1:
     # epilogue: restore ABI caller regs

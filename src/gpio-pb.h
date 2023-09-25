@@ -29,6 +29,8 @@ typedef struct
 
 
 void gpio_input_enable(GPIO_Registers_t *GPIO, unsigned int pin);
+void gpio_output_enable(GPIO_Registers_t *GPIO, unsigned int pin);
+void gpio_toggle(GPIO_Registers_t *GPIO, unsigned int pin);
 void gpio_pullup_enable(GPIO_Registers_t *GPIO, unsigned int pin);
 void gpio_high_interrupt_enable(GPIO_Registers_t *GPIO, unsigned int pin);
 void gpio_low_interrupt_enable(GPIO_Registers_t *GPIO, unsigned int pin);
@@ -44,6 +46,7 @@ int gpio_get_pin_val(int pin);
 void gpio_set_pin(int pin);
 void gpio_toggle_pin(int pin);
 void gpio_clear_pin(int pin);
+
 
 
 
