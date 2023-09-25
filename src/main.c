@@ -6,27 +6,21 @@
 #include "plic.h"
 #include "uart-pb.h"
 
-unsigned char string[] = "Pa3cio, Give Me Five! \n \0";
+unsigned char string[] = "Pa3cio, Give Me Five! \0";
 
 
 GPIO_Registers_t *GPIO = (GPIO_Registers_t*) GPIO_BASEADDR;
 UART_Registers_t *UART0 = (UART_Registers_t*) UART0_BASEADDR;
 //UART_Registers_t *UART1 = (UART_Registers_t*) UART1_BASEADDR;
 
-long cpufreq;
-struct metal_cpu *cpu;
-
-
 
 int main (void)
 {
-
 	/*
 	 * Disable all PLIC sources and vlear pending bits
 	 */
 	plic_disable_all();
 	plic_claim_amd_complete();		// clear CLAIM register
-
 
 	/*
 	 * Initialize UART 0:
@@ -34,7 +28,6 @@ int main (void)
 	init_uart(UART0, UART_1_STOP_BIT);
 	// enable Receiver interrupts:
 	uart_enable_rx_interrupt(UART0);
-
 
 	/*
 	 * Initialize GPIO LED pins:
@@ -73,7 +66,6 @@ int main (void)
 	enable_global_interrupts();
 	enable_mtimer_interrupt();
 	enable_mexternal_interrupt();
-
 
 	// set mtimecmp:
 	set_timer_compare(16384);
